@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Conversor</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script>
+    async function converter() {
+        const valor = document.getElementById("valor").value;
+        const base_origem = document.getElementById("base_origem").value;
+        const base_destino = document.getElementById("base_destino").value;
+
+        const response = await fetch("/conversao", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ valor, base_origem, base_destino })
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            alert("Resultado: " + data.resultado);
+        } else {
+            alert("Erro: " + data.erro);
+        }
+    }
+    </script>
+</head>
+<body>
+    <h1>Conversor de Bases</h1>
+    <input type="text" id="valor" placeholder="Digite o número"><br>
+    <label>De:</label>
+    <select id="base_origem">
+        <option value="decimal">Decimal</option>
+        <option value="binario">Binário</option>
+        <option value="hexadecimal">Hexadecimal</option>
+        <option value="octal">Octal</option>
+    </select>
+    <label>Para:</label>
+    <select id="base_destino">
+        <option value="decimal">Decimal</option>
+        <option value="binario">Binário</option>
+        <option value="hexadecimal">Hexadecimal</option>
+        <option value="octal">Octal</option>
+    </select><br><br>
+    <button onclick="converter()">Converter</button>
+
+    <nav>
+        <a href="/">Início</a> |
+        <a href="/grupo">Grupo</a> |
+        <a href="/converter">Converter</a>
+    </nav>
+</body>
+</html>
