@@ -15,6 +15,7 @@
 
 2. Instale as dependências:
    ```
+   pip install flask
    pip install -r requirements.txt
    ```
 
